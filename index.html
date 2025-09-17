@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Control de Asistencia por QR</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- jsQR (librería para decodificar QR desde ImageData) -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <h1>Control de Asistencia — Escaneo QR</h1>
+      <p class="sub">Muestra tu código QR al lente. Compatible desktop y móvil.</p>
+    </header>
+
+    <section class="scanner">
+      <!-- Área de video (stream de la cámara) -->
+      <div class="video-wrap">
+        <video id="video" playsinline autoplay muted></video>
+        <!-- marco de guía opcional -->
+        <div class="overlay">
+          <div class="frame"></div>
+        </div>
+      </div>
+
+      <!-- Controles -->
+      <div class="controls">
+        <button id="startBtn" class="btn">Iniciar cámara</button>
+        <button id="stopBtn" class="btn btn-secondary" disabled>Detener cámara</button>
+        <label class="switch">
+          <input type="checkbox" id="torchToggle" />
+          <span class="slider"></span>
+          <span class="label-text">Linterna (si está disponible)</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Resultados del escaneo -->
+    <aside class="results" aria-live="polite">
+      <h2>Resultado</h2>
+      <div id="resultCard" class="card empty">
+        <p class="hint">Aún no se ha escaneado ningún QR.</p>
+      </div>
+
+      <div class="history">
+        <h3>Historial reciente</h3>
+        <ul id="historyList"></ul>
+      </div>
+    </aside>
+
+    <!-- Canvas oculto para procesar frames -->
+    <canvas id="canvas" hidden></canvas>
+
+    <footer class="footer">
+      <small>Simulación de backend: se muestra la respuesta simulada tras cada escaneo.</small>
+    </footer>
+  </main>
+</body>
+</html>
